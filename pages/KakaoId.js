@@ -12,21 +12,25 @@ function KakaoId() {
   const [ nextPage, setNextPage ] = useState('다음 단계');
   const navigate = useNavigate();
 
-  // const kakaoIdInput = () => {
-  //   fetch('http://localhost:8080/members/profile/kakaoId', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({  kakaoId : kakaoId  })
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       alert(result.message);
-  //       console.log("결과 : ", result);
-  //       navigate('/SchoolCheck');
-  //     })
-  // }
+  const kakaoIdInput = () => {
+    const token = localStorage.getItem('accessToken')
+
+    fetch('http://localhost:8080/members/profile/kakaoId', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({  kakaoId : kakaoId  })
+    })
+      .then(result => {
+        if (result.message) {
+          alert(result.message);
+        }
+        console.log("결과 : ", result);
+        navigate('/SchoolCheck');
+      })
+  }
 
   const handleNextStep = () => {
     if (kakaoId === "") {
@@ -35,8 +39,7 @@ function KakaoId() {
       return;
     }
     setIsError(true);
-    // kakaoIdInput();
-    navigate('/SchoolCheck');
+    kakaoIdInput();
     setNextPage("다음 단계");
   }
 

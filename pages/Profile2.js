@@ -18,9 +18,7 @@ const imagePaths = [
   "/path/to/image9.png"
 ];
 
-function Profile2() {
-  console.log("Profile2 component rendered");
-
+function Profile2({ setProfileData }) {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isIconSelected, setIsIconSelected] = useState(false);
   const navigate = useNavigate();
@@ -55,6 +53,14 @@ function Profile2() {
     />
   ));
 
+  // 프로필 설정 ( 아이콘 ) 정보
+  const handleNext = () => {
+    setProfileData(prevData => ({
+      ...prevData,
+      profileIcon: selectedIcon,
+    }));
+  }
+
   return (
     <div className="Profile">
       <div className="Profile_title_wrapper">
@@ -76,7 +82,7 @@ function Profile2() {
       <div className="next-button-container">
         <Button 
           // className="next_page"
-          onClick={handleNextClick} 
+          onClick={() => {handleNextClick(); handleNext();}} 
           isActive={true}
           isNextButton={true}
         >

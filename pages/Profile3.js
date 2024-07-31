@@ -9,9 +9,7 @@ import MultiButton from "../components/MultiButton";
 
 const keywords = ["진로", "취업", "학업", "연애", "친구", "기타"];
 
-function Profile3() {
-  console.log("Profile3 component rendered");
-
+function Profile3({ profileData }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedIcon, name } = location.state || {};
@@ -25,6 +23,7 @@ function Profile3() {
 
   const handleKeywordClick = (keyword) => {
     console.log(`Keyword ${keyword} clicked`);
+    
     setSelectedKeywords((prevSelected) =>
       prevSelected.includes(keyword)
         ? prevSelected.filter((kw) => kw !== keyword)
@@ -35,7 +34,32 @@ function Profile3() {
   const handleNextClick = () => {
     console.log("Next button clicked");
     navigate("/filter", { state: { selectedIcon, name, introduction, selectedKeywords } });
+
+    const finalProfileData = {
+      ...profileData,
+      brief: introduction,
+      keywords: selectedKeywords,
+    };
+
+    fetch('http://localhost:8080/members/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body: JSON.stringify(finalProfileData),
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Profile creation successful:", result);
+      navigate('/filter');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(`오류가 발생했습니다: ${error.message}`);
+    });
   };
+  
 
   return (
     <div className="Profile">

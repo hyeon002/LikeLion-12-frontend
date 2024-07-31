@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 
-import logo from "../images/logo.png";
 import icon1 from "../images/icon1.png";
 import icon2 from "../images/icon2.png";
 import icon3 from "../images/icon3.png";
@@ -24,8 +23,8 @@ function BottomNav() {
       setSelectedIcon("acceptMain");
     } else if (location.pathname.includes("MatchingMain")) {
       setSelectedIcon("MatchingMain");
-    } else if (location.pathname.includes("AnotherMain")) {
-      setSelectedIcon("anotherMain");
+    } else if (location.pathname.includes("MessageMain")) {
+      setSelectedIcon("MessageMain");
     }
   }, [location.pathname]);
 
@@ -63,11 +62,11 @@ function BottomNav() {
         </div>
 
         <div className="icon">
-          <Link to="/AnotherMain" onClick={() => setSelectedIcon("anotherMain")}>
+          <Link to="/MessageMain" onClick={() => setSelectedIcon("MessageMain")}>
             <img 
               className="icon_image" 
-              src={selectedIcon === "anotherMain" ? icon4_selected : icon4} 
-              alt="Another Main"
+              src={selectedIcon === "MessageMain" ? icon4_selected : icon4} 
+              alt="Message Main"
             />
           </Link>
         </div>

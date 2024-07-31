@@ -5,7 +5,7 @@ import Keyword from "./Keyword";
 import peopleKakaoId from '../images/peopleKakaoId.png';
 import '../styles/PeopleLike.css';
 
-function PeopleKakao( { name } ) {
+function PeopleKakao( { name, onShowKakaoId } ) {
   return(
     <div className="people">
 
@@ -30,7 +30,7 @@ function PeopleKakao( { name } ) {
 
     
       <div className="peopleKakao_button">
-        <button className="peopleKakao_button">
+        <button className="peopleKakao_button" onClick={onShowKakaoId}>
           <img src={peopleKakaoId} className="peopleKakao_image"/>
           카톡 아이디 보기
         </button>

@@ -14,26 +14,29 @@ function SignUp1() {
   const [ isPasswordMatch, setIsPasswordMatch ] = useState(true);
   const [ nextPage, setNextPage ] = useState('회원 가입하기');
 
-  // const signUp = () => {
-  //   fetch('http://localhost:8080/members', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       phone: phone,
-  //       password: password
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       console.log("결과 : ", result);
-  //       if (result.message === "이미 존재하는 전화번호입니다.") {
-  //         alert('이미 존재하는 전화번호입니다.');
-  //       } else {
-  //         alert('회원가입 성공');
-  //         localStorage.setItem('accessToken', result.accessToken);
-  //         navigate('/KakaoId');
-  //       }
-  //     })
-  // };
+  const signUp = () => {
+    fetch('http://localhost:8080/members', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        phone: phone,
+        password: password
+      })
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log("결과 : ", result);
+        if (result.message === "이미 존재하는 전화번호입니다.") {
+          alert('이미 존재하는 전화번호입니다.');
+        } else {
+          alert('회원가입 성공');
+          localStorage.setItem('accessToken', result.accessToken);
+          navigate('/KakaoId');
+        }
+      })
+  };
 
   const handleNextStep = () => {
     if (phone === "" || password === "" || confirmPassword === "") {
@@ -46,7 +49,7 @@ function SignUp1() {
       setIsPasswordMatch(false)
     } 
     setIsPasswordMatch(true);
-    // signUp();
+    signUp();
     setNextPage('다음 단계');
   };
 

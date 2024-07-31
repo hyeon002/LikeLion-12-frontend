@@ -8,11 +8,79 @@ function SchoolCheck() {
   const [ email, setEmail ] = useState('');
   const [ code, setCode ] = useState('');
   const [ showEmailNumber , setShowEmailNumber ] = useState(false);
+  const [ universityName, setUniversityName ] = useState('');
 
   
-
+  // POST : email 로 인증 코드 전송
+  // 500 오류..
   const handleSchoolEmailCheck = () => {
+    const token = localStorage.getItem('accessToken');
+
+    fetch('http://localhost:8080/members/profile/email/send-code', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ email: email })
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(error => {
+            console.error('Error:', error);
+            alert(error.message || 'Unknown error');
+            throw new Error(error.message);
+          });
+        }
+        return response.json();
+      })
+      .then(result => {
+        console.log("Result : ", result);
+        if (result.success) {
+          alert('인증코드가 전송되었습니다.');
+          setShowEmailNumber(true);
+        } else {
+          alert('인증 코드 전송에 실패했습니다.');
+        }
+      })
+
+      .catch(error => {
+        console.error('Error:', error);
+        alert(`오류가 발생했습니다: ${error.message}`);
+      });
     setShowEmailNumber(true);
+  };
+
+  // GET : email 로 대학교 이름 조회 
+  // 400 오류..
+  const getUniversityName = () => {
+    const token = localStorage.getItem('accessToken');
+
+    fetch('http://localhost:8080/members/university-by-email', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(error => {
+          console.error('Error:', error);
+          alert(error.message || 'Unknown error');
+          throw new Error(error.message);
+        });
+      }
+      return response.json();
+    })
+    .then(result => {
+      console.log("University Result: ", result);
+      // setUniversityName(result.universityName);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(`오류가 발생했습니다: ${error.message}`);
+    });
   }
 
   return(
@@ -33,7 +101,7 @@ function SchoolCheck() {
             onChange={setEmail}
           />
           <button 
-            onClick={handleSchoolEmailCheck}
+            onClick={() => { handleSchoolEmailCheck(); getUniversityName();}}
             className="SchoolCheck_button"
           >전송하기</button>
         </div>
@@ -48,8 +116,13 @@ function SchoolCheck() {
             <button className="SchoolCheck_button">인증하기</button>
           </div>
         )}
-
       </div>
+
+      {showEmailNumber && (
+        <div className="SchoolCheck_name">
+          <p>대학교 : {universityName}</p>
+        </div>
+      )}
       
       <Link 
         to={`/Profile1`}

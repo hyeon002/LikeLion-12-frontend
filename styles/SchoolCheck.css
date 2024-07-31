@@ -50,3 +50,12 @@
 .SchoolCheck_button:hover {
   box-shadow: inset 1px 1px 7px #7e7e7e;
 }
+
+.SchoolCheck_name {
+  text-align: center;
+  color: #6C6363;
+  border-bottom: 3px solid #FFD8BE;
+  width: 280px;
+  padding: 5px;
+  font-weight: 700;
+}

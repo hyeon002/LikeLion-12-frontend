@@ -63,3 +63,40 @@
   text-align: center;
   border-radius: 7px;
 }
+
+.message {
+  width: 330px;
+  border: 1px solid #E1E1E1;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+
+.message_profile {
+  width: 65px;
+  height: 60px;
+  border-radius: 20px;
+  background-color: #FFF3E7;
+}
+
+.message_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message_text {
+  font-size: 11px;
+  text-decoration: #6A6A6A;
+  color: #6A6A6A;
+  margin-top: 5px;
+}
+
+.message_text p {
+  border-bottom: 1px solid #6A6A6A;
+  text-align: center;
+  padding: 4px;
+}

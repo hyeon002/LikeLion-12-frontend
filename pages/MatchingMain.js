@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import BottomNav from "../components/BottomNav";
 import Logo from "../components/Logo";
@@ -10,6 +10,8 @@ import '../styles/AcceptMain.css';
 
 
 function MatchingMain( { name } ) {
+  const [ showKakaoId, setShowKakaoId ] = useState(false);
+
   return(
     <div className="acceptMain">
       <Logo />
@@ -20,12 +22,16 @@ function MatchingMain( { name } ) {
       </div>
 
       <div>
-        <ShowKakaoId />
-        <PeopleKakao />
-        <PeopleKakao />
-        <PeopleKakao />
-        <PeopleKakao />
+        {showKakaoId ? ( <ShowKakaoId />) : (
+          <>
+            <PeopleKakao onShowKakaoId={() => setShowKakaoId(true)} />
+          </>
+        )}
       </div>
+      <PeopleKakao />
+      <PeopleKakao />
+      <PeopleKakao />
+      <PeopleKakao />
 
       <BottomNav />
     </div>
