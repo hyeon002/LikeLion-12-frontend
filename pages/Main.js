@@ -5,7 +5,7 @@ import Logo from "../components/Logo";
 import "../styles/Main.css";
 import Icon from "../components/Icon";
 
-function Main( { name } ) {
+function Main( { } ) {
   const [selectedOption, setSelectedOption] = useState('');
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function Main( { name } ) {
 
       <div className="main_text">
         <Icon />
-        <p className="main_name">{name}님!</p>
+        <p className="main_name">{}님!</p>
         <p className="main_explain">밥약 신청 상태를 설정해 주세요</p>
         <p className="main_explain">설정을 바탕으로 랜덤 매칭이 시작됩니다</p>
       </div>

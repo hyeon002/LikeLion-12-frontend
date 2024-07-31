@@ -13,30 +13,30 @@ function SignUp2() {
 
   const [ nextPage, setNextPage ] = useState('다음 단계');
 
-  // const logIn = () => {
-  //   fetch('http://localhost:8080/members/login', {
-  //     method: "POST",
-  //     headers: {
-  //       'Content-Type' : 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       phone: phone,
-  //       password: password
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       console.log("결과 : ", result);
-  //       if (result.message) {
-  //         alert(result.message);
-  //       }
-  //       else {
-  //         alert("로그인 성공");
-  //         localStorage.setItem('token', result.accessToken);
-  //         navigate('/KakaoId');
-  //       }
-  //     })
-  // }
+  const logIn = () => {
+    fetch('http://localhost:8080/members/login', {
+      method: "POST",
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify({
+        phone: phone,
+        password: password
+      })
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log("결과 : ", result);
+        if (result.message) {
+          alert(result.message);
+        }
+        else {
+          alert("로그인 성공");
+          localStorage.setItem('token', result.accessToken);
+          navigate('/KakaoId');
+        }
+      })
+  }
 
   const handleNextStep = () => {
     if (phone === "" || password === "") {
@@ -45,8 +45,8 @@ function SignUp2() {
       return;
     }
     setIsError(true);
-    // logIn();
-    navigate('/KakaoId');
+    logIn();
+    // navigate('/KakaoId');
     setNextPage("다음 단계");
   }
 

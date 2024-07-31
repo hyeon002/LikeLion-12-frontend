@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Input from '../components/Input';
 import Input2 from '../components/Input2';
 import '../styles/Profile1.css';
 
-function Profile1({ onChange, setProfileData }) {
+function Profile1({ setProfileData }) {
   const [ name, setName ] = useState('');               // 이름
   const [ gender, setGender ] = useState('');           // 성별
   const [ department, setDepartment ] = useState('');   // 소속 학과
@@ -14,17 +14,20 @@ function Profile1({ onChange, setProfileData }) {
   const [ grade, setGrade ] = useState('');             // 학년  
   const [ age, setAge ] = useState('');                 // 나이
 
+  const navigate = useNavigate();
+
   const handleNext = () => {
     setProfileData(prevData => ({
       ...prevData,
-      name,
-      gender, 
+      name, 
+      gender,
       department,
       classOf,
       studentStatus,
       grade,
       age,
     }));
+    navigate('/Profile2');
   }
 
   return(
@@ -47,14 +50,14 @@ function Profile1({ onChange, setProfileData }) {
             <p className="input_title">성별</p>
             <div className="input_button_container">
             <button 
-                className={`input_button ${gender === 'female' ? 'active' : ''}`} 
-                onClick={() => setGender('female')}
+                className={`input_button ${gender === 'GIRL' ? 'active' : ''}`} 
+                onClick={() => setGender('GIRL')}
               >
                 여성
               </button>
               <button 
-                className={`input_button ${gender === 'male' ? 'active' : ''}`} 
-                onClick={() => setGender('male')}
+                className={`input_button ${gender === 'MAN' ? 'active' : ''}`} 
+                onClick={() => setGender('MAN')}
               >
                 남성
               </button>
@@ -72,7 +75,7 @@ function Profile1({ onChange, setProfileData }) {
               className="input_container" 
               placeholder="예) 컴퓨터융합학부" 
               value={department}
-              onChange={setDepartment}
+              onChange={((e) => setDepartment(e.target.value))}
             />
           </div>
         </div>
@@ -92,9 +95,9 @@ function Profile1({ onChange, setProfileData }) {
                 value={studentStatus}
                 onChange={e => setStudentStatus(e.target.value)}
               >
-                <option value="student">재학생</option>
-                <option value="studentLeave">휴학생</option>
-                <option value="graduate">졸업생</option>
+                <option value="CURRENT">재학생</option>
+                <option value="LEAVE_OF_ABSENCE">휴학생</option>
+                <option value="GRADUATION">졸업생</option>
               </select>
             </form>
           </div>

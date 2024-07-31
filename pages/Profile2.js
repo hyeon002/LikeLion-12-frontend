@@ -1,27 +1,36 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../styles/Profile2.css';
 
 import Icon from "../components/Icon";
 import Button from "../components/Button";
-
+import image01 from '../images/profile01.png';
+import image02 from '../images/profile02.png';
+import image03 from '../images/profile03.png';
+import image04 from '../images/profile04.png';
+import image05 from '../images/profile05.png';
+import image06 from '../images/profile06.png';
+import image07 from '../images/profile07.png';
+import image08 from '../images/profile08.png';
+import image09 from '../images/profile09.png';
 
 const imagePaths = [
-  "/path/to/image1.png",
-  "/path/to/image2.png",
-  "/path/to/image3.png",
-  "/path/to/image4.png",
-  "/path/to/image5.png",
-  "/path/to/image6.png",
-  "/path/to/image7.png",
-  "/path/to/image8.png",
-  "/path/to/image9.png"
+  image01,
+  image02,
+  image03,
+  image04,
+  image05,
+  image06,
+  image07,
+  image08,
+  image09
 ];
 
 function Profile2({ setProfileData }) {
+  const navigate = useNavigate();
+
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isIconSelected, setIsIconSelected] = useState(false);
-  const navigate = useNavigate();
 
   const handleIconClick = (index) => {
     console.log(`Icon ${index} clicked`);
@@ -37,10 +46,15 @@ function Profile2({ setProfileData }) {
     }
   };
 
+  // 이모지, name 
   const handleNextClick = () => {
     console.log("Next button clicked");
     if (isIconSelected) {
-      navigate("/profile3", { state: { selectedIcon: imagePaths[selectedIcon], name: "이건하" } });
+      setProfileData(prevData => ({
+        ...prevData,
+        profileIcon: selectedIcon,
+      }));
+      navigate("/profile3", { state: { selectedIcon: imagePaths[selectedIcon] } });
     }
   };
 
@@ -53,13 +67,6 @@ function Profile2({ setProfileData }) {
     />
   ));
 
-  // 프로필 설정 ( 아이콘 ) 정보
-  const handleNext = () => {
-    setProfileData(prevData => ({
-      ...prevData,
-      profileIcon: selectedIcon,
-    }));
-  }
 
   return (
     <div className="Profile">
@@ -82,7 +89,7 @@ function Profile2({ setProfileData }) {
       <div className="next-button-container">
         <Button 
           // className="next_page"
-          onClick={() => {handleNextClick(); handleNext();}} 
+          onClick={handleNextClick} 
           isActive={true}
           isNextButton={true}
         >

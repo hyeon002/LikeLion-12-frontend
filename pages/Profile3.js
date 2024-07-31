@@ -7,12 +7,22 @@ import Icon from "../components/Icon";
 import Button from "../components/Button";
 import MultiButton from "../components/MultiButton";
 
-const keywords = ["진로", "취업", "학업", "연애", "친구", "기타"];
+const keywordMap = {
+  "진로": "CAREERS",
+  "취업": "EMPLOYMENT",
+  "학업": "ACADEMICS",
+  "연애": "RELATIONSHIPS",
+  "친구": "FRIENDS",
+  "기타": "ETC"
+};
+
+const keywords = Object.keys(keywordMap);
 
 function Profile3({ profileData }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedIcon, name } = location.state || {};
+  const { selectedIcon } = location.state || profileData;
+  
   const [introduction, setIntroduction] = useState("");
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [isNextEnabled, setIsNextEnabled] = useState(false);
@@ -32,14 +42,13 @@ function Profile3({ profileData }) {
   };
 
   const handleNextClick = () => {
-    console.log("Next button clicked");
-    navigate("/filter", { state: { selectedIcon, name, introduction, selectedKeywords } });
-
+    const mappedKeywords = selectedKeywords.map(kw => keywordMap[kw]);
     const finalProfileData = {
       ...profileData,
       brief: introduction,
-      keywords: selectedKeywords,
+      keywords: mappedKeywords,
     };
+    console.log('result: ', finalProfileData);
 
     fetch('http://localhost:8080/members/profile', {
       method: 'POST',
@@ -49,9 +58,7 @@ function Profile3({ profileData }) {
       },
       body: JSON.stringify(finalProfileData),
     })
-    .then(response => response.json())
     .then(result => {
-      console.log("Profile creation successful:", result);
       navigate('/filter');
     })
     .catch(error => {
@@ -71,7 +78,7 @@ function Profile3({ profileData }) {
 
       <div>
         <Icon imagePath={selectedIcon} />
-        <p className="profile3-name">{name}</p>
+        <p className="profile3-name">{profileData.name}</p>
       </div>
 
       <div className="profile3-input-container">

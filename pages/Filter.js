@@ -14,10 +14,32 @@ function Filter() {
   const navigate = useNavigate();
 
   const handleNextClick = () => {
-    console.log("Next button clicked");
-    if (genderPreference && differentDepartment) {
-      navigate("/");
-    }
+    const filterData = {
+      minAge: ageRange[0],
+      maxAge: ageRange[1],
+      genderCondition: genderPreference === "same" ? "ONLY_SAME" : "ANY",
+      minGrade: yearRange.start,
+      maxGrade: yearRange.end,
+      departmentCondition: differentDepartment === "yes" ? "ANY" : "ONLY_SAME"
+    };
+
+    fetch('http://localhost:8080/filters', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body: JSON.stringify(filterData),
+    })
+    .then(result => {
+      console.log("Filter settings saved:", result);
+      console.log('filterData: ', filterData);
+      navigate("/");  
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(`오류가 발생했습니다: ${error.message}`);
+    });
   };
 
   return (

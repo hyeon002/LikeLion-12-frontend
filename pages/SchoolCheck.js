@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/SchoolCheck.css';
 
 import Input from '../components/Input';
+import universityImage from '../images/university.png';
 
 function SchoolCheck() {
   const [ email, setEmail ] = useState('');
@@ -27,15 +28,15 @@ function SchoolCheck() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(error => {
-            console.error('Error:', error);
-            alert(error.message || 'Unknown error');
+            // console.error('Error:', error);
+            // alert(error.message || 'Unknown error');
             throw new Error(error.message);
           });
         }
         return response.json();
       })
       .then(result => {
-        console.log("Result : ", result);
+        // console.log("Result : ", result);
         if (result.success) {
           alert('인증코드가 전송되었습니다.');
           setShowEmailNumber(true);
@@ -43,20 +44,20 @@ function SchoolCheck() {
           alert('인증 코드 전송에 실패했습니다.');
         }
       })
-
       .catch(error => {
         console.error('Error:', error);
-        alert(`오류가 발생했습니다: ${error.message}`);
+        alert(`서버 오류가 발생했습니다: ${error.message}`);
       });
     setShowEmailNumber(true);
   };
 
+
   // GET : email 로 대학교 이름 조회 
-  // 400 오류..
   const getUniversityName = () => {
     const token = localStorage.getItem('accessToken');
 
-    fetch('http://localhost:8080/members/university-by-email', {
+    // fetch('http://localhost:8080/members/university-by-email', {
+    fetch(`http://localhost:8080/members/university-by-email?email=${email}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -65,17 +66,21 @@ function SchoolCheck() {
     })
     .then(response => {
       if (!response.ok) {
-        return response.json().then(error => {
-          console.error('Error:', error);
-          alert(error.message || 'Unknown error');
-          throw new Error(error.message);
-        });
+        throw new Error('서버 응답 상태 코드가 200이 아닙니다.');
       }
-      return response.json();
+      return response.text();
     })
-    .then(result => {
-      console.log("University Result: ", result);
-      // setUniversityName(result.universityName);
+    .then(text => {
+      if (text === '') {
+        throw new Error('서버로부터 빈 응답을 받았습니다.');
+      }
+      try {
+        const result = JSON.parse(text);
+        setUniversityName(result.universityName);
+      } 
+      catch (error) {
+        setUniversityName(text);  
+      }
     })
     .catch(error => {
       console.error('Error:', error);
@@ -120,7 +125,8 @@ function SchoolCheck() {
 
       {showEmailNumber && (
         <div className="SchoolCheck_name">
-          <p>대학교 : {universityName}</p>
+          <img src={universityImage} />
+          <p>{universityName}</p>
         </div>
       )}
       

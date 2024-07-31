@@ -20,12 +20,7 @@ import MessageMain from './pages/MessageMain';
 function App() {
   const [profileData, setProfileData] = useState({});
 
-  const updateProfileData = (newData) => {
-    setProfileData(prevData => ({
-      ...prevData,
-      ...newData
-    }));
-  };
+  console.log('App :', profileData);
 
   return (
     <RootLayout>
@@ -35,8 +30,8 @@ function App() {
         <Route path='/KakaoId' element={<KakaoId />}/>
         <Route path='/SignUp2' element={<SignUp2 />} />
         <Route path='/SchoolCheck' element={<SchoolCheck />} />
-        <Route path='/Profile1' element={<Profile1 setProfileData={updateProfileData}/>} />
-        <Route path='/Profile2' element={<Profile2 setProfileData={updateProfileData}/>} />
+        <Route path='/Profile1' element={<Profile1 setProfileData={setProfileData}/>} />
+        <Route path='/Profile2' element={<Profile2 setProfileData={setProfileData}/>} />
         <Route path='/Profile3' element={<Profile3 profileData={profileData}/>} />
         <Route path='/Filter' element={<Filter />} />
 
