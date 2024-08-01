@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../styles/Profile2.css';
 
 import Icon from "../components/Icon";
@@ -33,14 +33,12 @@ function Profile2({ setProfileData }) {
   const [isIconSelected, setIsIconSelected] = useState(false);
 
   const handleIconClick = (index) => {
-    console.log(`Icon ${index} clicked`);
     if (!isIconSelected) {
       setSelectedIcon(index);
     }
   };
 
   const handleSelectClick = () => {
-    console.log("Select button clicked");
     if (selectedIcon !== null) {
       setIsIconSelected(!isIconSelected);
     }
@@ -48,12 +46,13 @@ function Profile2({ setProfileData }) {
 
   // 이모지, name 
   const handleNextClick = () => {
-    console.log("Next button clicked");
     if (isIconSelected) {
       setProfileData(prevData => ({
         ...prevData,
         profileIcon: selectedIcon,
       }));
+      // 선택한 이모지를 Main 화면에서 나타나게 하기 위함 
+      localStorage.setItem('selectedIcon', selectedIcon);
       navigate("/profile3", { state: { selectedIcon: imagePaths[selectedIcon] } });
     }
   };

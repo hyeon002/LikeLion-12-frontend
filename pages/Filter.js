@@ -7,11 +7,12 @@ import '../styles/Filter.css';
 import Button from '../components/Button';
 
 function Filter() {
+  const navigate = useNavigate();
+  
   const [ageRange, setAgeRange] = useState([18, 39]);
   const [genderPreference, setGenderPreference] = useState("");
   const [yearRange, setYearRange] = useState({ start: "", end: "" });
   const [differentDepartment, setDifferentDepartment] = useState("");
-  const navigate = useNavigate();
 
   const handleNextClick = () => {
     const filterData = {

@@ -1,9 +1,9 @@
 import React from "react";
-
-import logo from "../images/logo.png";
 import "../styles/Logo.css";
 
-function Logo( { name } ) {
+import logo from "../images/logo.png";
+
+function Logo() {
   return(
     <div>
 

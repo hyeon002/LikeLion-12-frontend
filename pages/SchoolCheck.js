@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SchoolCheck.css';
 
 import Input from '../components/Input';
 import universityImage from '../images/university.png';
 
 function SchoolCheck() {
+  const navigate = useNavigate();
+
   const [ email, setEmail ] = useState('');
   const [ code, setCode ] = useState('');
-  const [ showEmailNumber , setShowEmailNumber ] = useState(false);
+  const [ showCodeInput , setShowCodeInput ] = useState(false);
   const [ universityName, setUniversityName ] = useState('');
-  const navigate = useNavigate();
 
   const [ nextPage, setNextPage ] = useState('다음 단계');
   const [ isError, setIsError ] = useState(true);
 
   
   // POST : email 로 인증 코드 전송
+  // 오류 발생 : 인증 코드 전송에 실패했습니다.
   const handleSchoolEmailCheck = () => {
     const token = localStorage.getItem('accessToken');
 
@@ -28,19 +30,19 @@ function SchoolCheck() {
       },
       body: JSON.stringify({ email: email })
     })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(error => {
-            throw new Error(error.message);
-          });
-        }
-        return response;
-      })
+      // .then(response => {
+      //   if (!response.ok) {
+      //     return response.json().then(error => {
+      //       throw new Error(error.message);
+      //     });
+      //   }
+      //   return response;
+      // })
       .then(result => {
         if (result.success) {
           console.log('result : ', result);
           alert('인증코드가 전송되었습니다.');
-          setShowEmailNumber(true);
+          setShowCodeInput(true);
         } else {
           console.log('result : ', result);
           alert('인증 코드 전송에 실패했습니다.');
@@ -50,7 +52,9 @@ function SchoolCheck() {
         console.error('Error:', error);
         alert(`서버 오류가 발생했습니다: ${error.message}`);
       });
-    setShowEmailNumber(true);  // 임시로 인증코드가 확인되지 않아도 되도록 해놓음
+
+    // 임시로 인증코드가 확인되지 않아도 되도록 해놓음
+    setShowCodeInput(true); 
   };
 
 
@@ -90,12 +94,9 @@ function SchoolCheck() {
   }
 
   // POST : code 로 인증 코드 확인 
+  // 오류 발생 : 이메일 확인 코드가 일치하지 않습니다.
   const handleCodeCertificate = () => {
     const token = localStorage.getItem('accessToken');
-
-    const requestData = {
-      code: code.trim()
-    };
 
     fetch('http://localhost:8080/members/profile/email/certificate', {
       method: 'POST',
@@ -103,7 +104,7 @@ function SchoolCheck() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(requestData)
+      body: JSON.stringify({code: code})
     })
       .then(response => {
         if (!response.ok) {
@@ -170,7 +171,7 @@ function SchoolCheck() {
           >전송하기</button>
         </div>
 
-        {showEmailNumber && (
+        {showCodeInput && (
           <div className="SchoolCheck_input_wrapper">
             <Input 
               title={"인증번호 4자리 입력"}
@@ -185,7 +186,7 @@ function SchoolCheck() {
         )}
       </div>
 
-      {showEmailNumber && (
+      {showCodeInput && (
         <div className="SchoolCheck_name">
           <img src={universityImage} />
           <p>{universityName}</p>

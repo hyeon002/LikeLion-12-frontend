@@ -100,3 +100,7 @@
 
   margin-bottom: 50px;
 }
+
+.next_page.error:hover {
+  box-shadow: inset 2px 2px 6px #7e7e7e;
+}

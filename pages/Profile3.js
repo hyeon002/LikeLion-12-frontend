@@ -1,4 +1,3 @@
-// Profile3.js
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../styles/Profile3.css';
@@ -32,8 +31,6 @@ function Profile3({ profileData }) {
   }, [introduction]);
 
   const handleKeywordClick = (keyword) => {
-    console.log(`Keyword ${keyword} clicked`);
-    
     setSelectedKeywords((prevSelected) =>
       prevSelected.includes(keyword)
         ? prevSelected.filter((kw) => kw !== keyword)

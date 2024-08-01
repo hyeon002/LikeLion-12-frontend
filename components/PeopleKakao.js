@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React from "react";
+import '../styles/PeopleLike.css';
 
 import Keyword from "./Keyword";
 import peopleKakaoId from '../images/peopleKakaoId.png';
-import '../styles/PeopleLike.css';
 
-function PeopleKakao( { name, onShowKakaoId } ) {
+function PeopleKakao( { onShowKakaoId } ) {
   return(
     <div className="people">
 
@@ -27,7 +26,6 @@ function PeopleKakao( { name, onShowKakaoId } ) {
         <Keyword value={"친구"}/>
         <Keyword value={"기타"}/>
       </div>
-
     
       <div className="peopleKakao_button">
         <button className="peopleKakao_button" onClick={onShowKakaoId}>

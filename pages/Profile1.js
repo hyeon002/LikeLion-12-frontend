@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Profile1.css';
 
 import Input from '../components/Input';
 import Input2 from '../components/Input2';
-import '../styles/Profile1.css';
 
 function Profile1({ setProfileData }) {
+  const navigate = useNavigate();
+  
   const [ name, setName ] = useState('');               // 이름
   const [ gender, setGender ] = useState('');           // 성별
   const [ department, setDepartment ] = useState('');   // 소속 학과
@@ -16,7 +18,6 @@ function Profile1({ setProfileData }) {
 
   const [ nextPage, setNextPage ] = useState('다음 단계');
   const [ isError, setIsError ] = useState(false);
-  const navigate = useNavigate();
 
   const handleNext = () => {
     if (name === "" || gender === "" || department === "" || classOf === "" || studentStatus === "" || grade === "" || age === ""){

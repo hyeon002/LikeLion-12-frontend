@@ -6,10 +6,11 @@ import logo from "../images/logo.png"
 import Input from "../components/Input";
 
 function SignUp1() {
+  const navigate = useNavigate();
+  
   const [ phone, setPhone ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
-  const navigate = useNavigate();
 
   const [ isPasswordMatch, setIsPasswordMatch ] = useState(true);
   const [ nextPage, setNextPage ] = useState('회원 가입하기');
@@ -97,7 +98,6 @@ function SignUp1() {
 
       <button 
         onClick={ handleNextStep }
-        // onClick={signUp}
         className={`next_page ${!isPasswordMatch ? 'error' : ''}`}
       >{ nextPage }</button>
 

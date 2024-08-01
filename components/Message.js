@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 
 import "../styles/People.css";
 
 
-function Message( { name } ) {
+function Message() {
   return(
     <div className="message">
       <div className="message_container">
@@ -18,7 +17,6 @@ function Message( { name } ) {
           </div>
           <p className="people_explain">충남대학교 전자공학과 2학년</p>
         </div>
-
 
       </div>
       

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-
-import peopleKakaoId from '../images/peopleKakaoId.png';
+import React from "react";
 import '../styles/PeopleLike.css';
 
-function ShowKakaoId( { name } ) {
+import peopleKakaoId from '../images/peopleKakaoId.png';
+
+function ShowKakaoId() {
   return(
     <div className="ShowKakaoId">
 

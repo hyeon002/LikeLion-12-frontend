@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../styles/KakaoId.css';
 
 import Input from '../components/Input';
-import '../styles/KakaoId.css';
 import kakao1 from '../images/Kakao1.png';
 import kakao2 from '../images/Kakao2.png';
 
@@ -77,11 +77,6 @@ function KakaoId() {
         </div>
         
       </div>
-
-      {/* <Link 
-        to={`/SchoolCheck`}
-        className="next_page"
-      >다음 단계</Link> */}
 
       <button 
         onClick={ handleNextStep }

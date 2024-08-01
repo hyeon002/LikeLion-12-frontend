@@ -8,7 +8,7 @@ import rice from '../images/rice.png';
 import '../styles/AcceptMain.css';
 
 
-function AcceptMain( { name } ) {
+function AcceptMain() {
   return(
     <div className="acceptMain">
       <Logo />

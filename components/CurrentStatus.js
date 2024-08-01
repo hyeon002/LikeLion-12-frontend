@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React from "react";
 import warning from '../images/warning.png';
 
 import '../styles/CurrentStatus.css';
 
 function CurrentStatus({ status }) {
-  // const [ status, setStatus ] = useState('');
 
   return(
     <div className="status">

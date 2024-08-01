@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
+import "../styles/RequestMain.css";
+import "../styles/BottomNav.css";
 
 import icon1 from "../images/icon1.png";
 import icon2 from "../images/icon2.png";
@@ -9,8 +11,6 @@ import icon1_selected from "../images/icon1_selected.png";
 import icon2_selected from "../images/icon2_selected.png";
 import icon3_selected from "../images/icon3_selected.png";
 import icon4_selected from "../images/icon4_selected.png";
-import "../styles/RequestMain.css";
-import "../styles/BottomNav.css";
 
 function BottomNav() {
   const location = useLocation();

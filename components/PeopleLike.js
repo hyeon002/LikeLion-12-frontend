@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import '../styles/PeopleLike.css';
 
 import Keyword from "./Keyword";
 import like from '../images/Like.png';
 import bad from '../images/bad.png';
-import '../styles/PeopleLike.css';
 
-function PeopleLike( { name } ) {
+function PeopleLike() {
   const [ selectLike, setSelectLike ] = useState('');
   const [ likeText, setLikeText ] = useState('좋아요');
   const [ badText, setBadText ] = useState('매칭 실패');

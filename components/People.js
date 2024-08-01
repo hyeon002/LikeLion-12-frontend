@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-
 import "../styles/People.css";
+
 import Keyword from "./Keyword";
 import requestImage from '../images/request.png';
 
 
-function People( { name } ) {
+function People() {
   return(
     <div className="people">
       <div className="people_container">

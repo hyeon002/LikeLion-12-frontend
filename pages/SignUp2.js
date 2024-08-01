@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/SignUp2.css';
 
 import logo from "../images/logo.png"
 import Input from "../components/Input";
 
+// 전화번호 : 01012341234
+// 비밀번호 : 1234
+
 function SignUp2() {
+  const navigate = useNavigate();
+
   const [ phone, setPhone ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ isError, setIsError ] = useState(true);
-  const navigate = useNavigate();
 
   const [ nextPage, setNextPage ] = useState('다음 단계');
 
@@ -77,10 +81,6 @@ function SignUp2() {
         </div>
       </div>
 
-      {/* <Link 
-        to={`/KakaoId`}
-        className="next_page"
-      >다음 단계</Link> */}
       <button 
         onClick={ handleNextStep }
         className={`next_page ${!isError ? 'error' : ''}`}

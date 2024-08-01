@@ -1,4 +1,3 @@
-// MultiButton.js
 import React from 'react';
 import '../styles/MultiButton.css';
 
