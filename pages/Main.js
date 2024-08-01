@@ -10,7 +10,31 @@ function Main( { } ) {
   const navigate = useNavigate();
 
   const handleComplete = () => {
-    navigate('/RequestMain');
+    if (!selectedOption) {
+      alert('옵션을 선택해주세요.');
+      return;
+    }
+    localStorage.setItem('selectedOption', selectedOption);
+
+    const token = localStorage.getItem('accessToken');
+
+    fetch('http://localhost:8080/filters/side', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ state: selectedOption })
+    })
+    .then(result => {
+      console.log('State successfully updated:', result);
+      alert('설정이 완료되었습니다.');
+      navigate('/RequestMain');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(`서버 오류가 발생했습니다: ${error.message}`);
+    });
   };
 
   return(
@@ -25,18 +49,18 @@ function Main( { } ) {
       </div>
 
       <button 
-        className={`main_button ${selectedOption === 'apply' ? 'active' : ''}`}
-        onClick={() => setSelectedOption('apply')}
+        className={`main_button ${selectedOption === 'BUYER' ? 'active' : ''}`}
+        onClick={() => setSelectedOption('BUYER')}
       >후배님 밥 먹어요~ <br/>(신청할래요)</button>
       <button 
-        className={`main_button ${selectedOption === 'eat' ? 'active' : ''}`}
-        onClick={() => setSelectedOption('eat')}
+        className={`main_button ${selectedOption === 'TAKER' ? 'active' : ''}`}
+        onClick={() => setSelectedOption('TAKER')}
       >
         선배님 밥 사주세요~ <br/>(먹을래요)
       </button>
       <button 
-        className={`main_button ${selectedOption === 'both' ? 'active' : ''}`}
-        onClick={() => setSelectedOption('both')}
+        className={`main_button ${selectedOption === 'BOTH' ? 'active' : ''}`}
+        onClick={() => setSelectedOption('BOTH')}
       >
         둘 다 좋아요~
       </button>

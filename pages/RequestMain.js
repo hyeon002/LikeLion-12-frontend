@@ -8,12 +8,14 @@ import CurrentStatus from "../components/CurrentStatus";
 import "../styles/RequestMain.css";
 import "../styles/Main.css";
 
-function RequestMain( { name } ) {
+function RequestMain() {
+  const selectedOption = localStorage.getItem('selectedOption') || '';
+
   return(
     <div className="requestMain">
       <Logo />
 
-      <CurrentStatus />
+      <CurrentStatus status={selectedOption} />
 
       <div>
         <RequestPeople />

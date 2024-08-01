@@ -4,8 +4,8 @@ import warning from '../images/warning.png';
 
 import '../styles/CurrentStatus.css';
 
-function CurrentStatus( { name } ) {
-  const [ status, setStatus ] = useState('');
+function CurrentStatus({ status }) {
+  // const [ status, setStatus ] = useState('');
 
   return(
     <div className="status">
@@ -18,24 +18,21 @@ function CurrentStatus( { name } ) {
       <div className="status_select_container">
 
         <button 
-          className={`status_select ${status === 'apply' ? 'active' : ''}`}
-          onClick={() => setStatus('apply')}
+          className={`status_select ${status === 'BUYER' ? 'active' : ''}`}
         >
           <div className="status_circle red"></div>
           <p className="status_select_text">신청할래요</p>
         </button>
 
         <button 
-          className={`status_select ${status === 'eat' ? 'active' : ''}`}
-          onClick={() => setStatus('eat')}
+          className={`status_select ${status === 'TAKER' ? 'active' : ''}`}
         >
           <div className="status_circle blue"></div>
           <p className="status_select_text">먹을래요</p>
         </button>
 
         <button 
-          className={`status_select ${status === 'both' ? 'active' : ''}`}
-          onClick={() => setStatus('both')}
+          className={`status_select ${status === 'BOTH' ? 'active' : ''}`}
         >
           <div className="status_circle green"></div>
           <p className="status_select_text">둘 다 좋아요</p>

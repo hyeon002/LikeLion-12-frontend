@@ -13,7 +13,6 @@ function SchoolCheck() {
 
   
   // POST : email 로 인증 코드 전송
-  // 500 오류..
   const handleSchoolEmailCheck = () => {
     const token = localStorage.getItem('accessToken');
 
@@ -28,19 +27,18 @@ function SchoolCheck() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(error => {
-            // console.error('Error:', error);
-            // alert(error.message || 'Unknown error');
             throw new Error(error.message);
           });
         }
-        return response.json();
+        return response;
       })
       .then(result => {
-        // console.log("Result : ", result);
         if (result.success) {
+          console.log('result : ', result);
           alert('인증코드가 전송되었습니다.');
           setShowEmailNumber(true);
         } else {
+          console.log('result : ', result);
           alert('인증 코드 전송에 실패했습니다.');
         }
       })
@@ -48,7 +46,7 @@ function SchoolCheck() {
         console.error('Error:', error);
         alert(`서버 오류가 발생했습니다: ${error.message}`);
       });
-    setShowEmailNumber(true);
+    setShowEmailNumber(true);  // 임시로 인증코드가 확인되지 않아도 되도록 해놓음
   };
 
 
@@ -56,7 +54,6 @@ function SchoolCheck() {
   const getUniversityName = () => {
     const token = localStorage.getItem('accessToken');
 
-    // fetch('http://localhost:8080/members/university-by-email', {
     fetch(`http://localhost:8080/members/university-by-email?email=${email}`, {
       method: 'GET',
       headers: {
@@ -86,6 +83,47 @@ function SchoolCheck() {
       console.error('Error:', error);
       alert(`오류가 발생했습니다: ${error.message}`);
     });
+  }
+
+  // POST : code 로 인증 코드 확인 
+  const handleCodeCertificate = () => {
+    const token = localStorage.getItem('accessToken');
+
+    const requestData = {
+      code: code.trim()
+    };
+
+    fetch('http://localhost:8080/members/profile/email/certificate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(requestData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(error => {
+            console.error('Error response from server:', error);
+            alert(`오류 발생: ${error.message}`);
+            throw new Error(error.message || 'Unknown error');
+          });
+        }
+        return response.json();
+      })
+      .then(result => {
+        if (result.success) {
+          console.log('result : ', result);
+          alert('이메일 인증이 완료되었습니다.');
+        } else {
+          console.log('result : ', result);
+          alert('인증에 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert(`서버 오류가 발생했습니다: ${error.message}`);
+      });
   }
 
   return(
@@ -118,7 +156,10 @@ function SchoolCheck() {
               value={code}
               onChange={setCode}
             />
-            <button className="SchoolCheck_button">인증하기</button>
+            <button 
+              className="SchoolCheck_button"
+              onClick={handleCodeCertificate}
+            >인증하기</button>
           </div>
         )}
       </div>
