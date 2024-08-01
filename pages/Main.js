@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../components/Logo";
 
@@ -8,6 +8,15 @@ import Icon from "../components/Icon";
 function Main( { } ) {
   const [selectedOption, setSelectedOption] = useState('');
   const navigate = useNavigate();
+  const [ profileName, setProfileName ] = useState('');
+
+  useEffect(() => {
+    // localStorage 에서 저장된 이름 가져옴 
+    const storedName = localStorage.getItem('profileName');
+    if (storedName) {
+      setProfileName(storedName);
+    }
+  }, []);
 
   const handleComplete = () => {
     if (!selectedOption) {
@@ -43,7 +52,7 @@ function Main( { } ) {
 
       <div className="main_text">
         <Icon />
-        <p className="main_name">{}님!</p>
+        <p className="main_name">{profileName}님!</p>
         <p className="main_explain">밥약 신청 상태를 설정해 주세요</p>
         <p className="main_explain">설정을 바탕으로 랜덤 매칭이 시작됩니다</p>
       </div>

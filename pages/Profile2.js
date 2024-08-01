@@ -88,7 +88,6 @@ function Profile2({ setProfileData }) {
 
       <div className="next-button-container">
         <Button 
-          // className="next_page"
           onClick={handleNextClick} 
           isActive={true}
           isNextButton={true}

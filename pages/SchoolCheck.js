@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import '../styles/SchoolCheck.css';
 
 import Input from '../components/Input';
@@ -10,6 +10,10 @@ function SchoolCheck() {
   const [ code, setCode ] = useState('');
   const [ showEmailNumber , setShowEmailNumber ] = useState(false);
   const [ universityName, setUniversityName ] = useState('');
+  const navigate = useNavigate();
+
+  const [ nextPage, setNextPage ] = useState('다음 단계');
+  const [ isError, setIsError ] = useState(true);
 
   
   // POST : email 로 인증 코드 전송
@@ -115,6 +119,7 @@ function SchoolCheck() {
         if (result.success) {
           console.log('result : ', result);
           alert('이메일 인증이 완료되었습니다.');
+          navigate('/Profile1');
         } else {
           console.log('result : ', result);
           alert('인증에 실패했습니다.');
@@ -124,6 +129,22 @@ function SchoolCheck() {
         console.error('Error:', error);
         alert(`서버 오류가 발생했습니다: ${error.message}`);
       });
+  }
+
+  const handleNextStep = () => {
+    if (email === "") {
+      setNextPage('이메일을 입력해주세요');
+      setIsError(false);
+      return;
+    }
+    if (code === "") {
+      setNextPage('인증 코드를 입력해주세요');
+      setIsError(false);
+      return;
+    }
+    setIsError(true);
+    setNextPage('다음 단계');
+    navigate('/Profile1');
   }
 
   return(
@@ -173,8 +194,9 @@ function SchoolCheck() {
       
       <Link 
         to={`/Profile1`}
-        className="next_page"
-      >다음 단계</Link>
+        className={`next_page ${!isError ? 'error' : ''}`}
+        onClick={handleNextStep}
+      >{nextPage}</Link>
     </div>
   );
 }

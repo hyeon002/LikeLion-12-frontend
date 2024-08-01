@@ -14,9 +14,27 @@ function Profile1({ setProfileData }) {
   const [ grade, setGrade ] = useState('');             // 학년  
   const [ age, setAge ] = useState('');                 // 나이
 
+  const [ nextPage, setNextPage ] = useState('다음 단계');
+  const [ isError, setIsError ] = useState(false);
   const navigate = useNavigate();
 
   const handleNext = () => {
+    if (name === "" || gender === "" || department === "" || classOf === "" || studentStatus === "" || grade === "" || age === ""){
+      setNextPage('모든 정보를 입력해주세요');
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
+    setNextPage('다음 단계');
+    handleData();
+
+    navigate('/Profile2');
+  }
+  
+  const handleData = () => {
+    // name 을 localStorage 에 저장 ( Main에서 나타내고 싶음 )
+    localStorage.setItem('profileName', name);
+
     setProfileData(prevData => ({
       ...prevData,
       name, 
@@ -27,7 +45,6 @@ function Profile1({ setProfileData }) {
       grade,
       age,
     }));
-    navigate('/Profile2');
   }
 
   return(
@@ -116,11 +133,10 @@ function Profile1({ setProfileData }) {
 
       </div>
 
-      <Link 
-        to={`/Profile2`}
-        className="next_page"
+      <button 
+        className={`next_page ${isError ? 'error' : ''}`}
         onClick={handleNext}
-      >다음 단계</Link>
+      >{nextPage}</button>
     </div>
   );
 }
