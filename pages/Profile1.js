@@ -112,7 +112,8 @@ function Profile1({ setProfileData }) {
                 className="input2_container"
                 value={studentStatus}
                 onChange={e => setStudentStatus(e.target.value)}
-              >
+              > 
+                <option value=""></option>
                 <option value="CURRENT">재학생</option>
                 <option value="LEAVE_OF_ABSENCE">휴학생</option>
                 <option value="GRADUATION">졸업생</option>

@@ -18,10 +18,10 @@ function Filter() {
     const filterData = {
       minAge: ageRange[0],
       maxAge: ageRange[1],
-      genderCondition: genderPreference === "same" ? "ONLY_SAME" : "ANY",
-      minGrade: yearRange.start,
-      maxGrade: yearRange.end,
-      departmentCondition: differentDepartment === "yes" ? "ANY" : "ONLY_SAME"
+      genderCondition: genderPreference === "same" ? "ONLY_SAME" : "BOTH",
+      minGrade: +yearRange.start,
+      maxGrade: +yearRange.end,
+      departmentCondition: differentDepartment === "yes" ? "BOTH" : "ONLY_SAME"
     };
 
     fetch('http://localhost:8080/filters', {
