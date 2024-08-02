@@ -2,7 +2,8 @@ import React from "react";
 import "../styles/People.css";
 
 import Keyword from "./Keyword";
-import requestImage from '../images/request.png';
+// import requestImage from '../images/request.png';
+import requestImage from '../images/requestImage.png';
 
 
 function People() {

@@ -39,14 +39,9 @@ function SchoolCheck() {
       //   return response;
       // })
       .then(result => {
-        if (result.success) {
-          console.log('result : ', result);
-          alert('인증코드가 전송되었습니다.');
-          setShowCodeInput(true);
-        } else {
-          console.log('result : ', result);
-          alert('인증 코드 전송에 실패했습니다.');
-        }
+        console.log('result : ', result);
+        alert('인증코드가 전송되었습니다.');
+        setShowCodeInput(true);
       })
       .catch(error => {
         console.error('Error:', error);
