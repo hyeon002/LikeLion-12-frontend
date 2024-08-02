@@ -2,8 +2,36 @@ import React, { useState } from "react";
 
 import SendButton from "./SendButton";
 import '../styles/PeopleLike.css';
+import send from "../images/send.png";
 
-function PeopleMessage({ thankMessage, setThankMessage, handleSendMessage }) {
+function PeopleMessage({ matchId, thankMessage, setThankMessage, handleSendMessage }) {
+  const handleSendMessageClick = () => {
+    if (!matchId) {
+      alert("매칭 ID 가 유효하지 않습니다.");
+      return;
+    }
+
+    const token = localStorage.getItem('accessToken');
+    fetch(`http://localhost:8080/matches/${matchId}/thanks`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ message: thankMessage })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Message sent:', data);
+      handleSendMessage(); // 성공적으로 메시지를 보냈을 때 처리
+      setThankMessage(""); // 입력 필드 초기화
+      alert("감사 메시지가 성공적으로 전송되었습니다!");
+    })
+    .catch(error => {
+      console.error('Error sending message:', error);
+    });
+  };
+  
   return (
     <div className="people_message">
       <div className="message_thank">
@@ -16,8 +44,12 @@ function PeopleMessage({ thankMessage, setThankMessage, handleSendMessage }) {
           value={thankMessage}
           onChange={(e) => setThankMessage(e.target.value)}
         />
-        <SendButton onClick={handleSendMessage} isActive={true}>
-          보내기
+        <SendButton 
+          className="thank_message_button"
+          onClick={handleSendMessageClick} 
+          handleSendMessage={handleSendMessage}
+          isActive={true}>
+          <img src={send} />
         </SendButton>
       </div>
     </div>

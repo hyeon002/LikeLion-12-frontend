@@ -24,6 +24,24 @@ function Main() {
       setProfileIcon(imagePaths[storedIconIndex]);
     }
   }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken');
+  //   fetch('http://localhost:8080/members/profile', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Authorization': `Bearer ${token}`
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       if (data) {
+  //         setProfileName(data.name); // 서버로부터 받은 사용자 이름 설정
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching profile:', error);
+  //     });
+  // }, []);
 
   const handleComplete = () => {
     if (!selectedOption) {

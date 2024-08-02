@@ -10,12 +10,11 @@ import Input from "../components/Input";
 
 function SignUp2() {
   const navigate = useNavigate();
-
   const [ phone, setPhone ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ isError, setIsError ] = useState(true);
-
   const [ nextPage, setNextPage ] = useState('다음 단계');
+  const [ userName, setUserName ] = useState('');
 
   const logIn = () => {
     fetch('http://localhost:8080/members/login', {
@@ -37,10 +36,33 @@ function SignUp2() {
         else {
           alert("로그인 성공");
           localStorage.setItem('token', result.accessToken);
-          navigate('/KakaoId');
+          setUserName(result.name);
+          checkProfileSetup();
         }
       })
   }
+
+  const checkProfileSetup = () => {
+    const token = localStorage.getItem('accessToken');
+    fetch('http://localhost:8080/members/profile', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          navigate('/Main');
+        } else {
+          navigate('/ProfileSetup');
+        }
+      })
+      .catch(error => {
+        console.error('Error checking profile setup:', error);
+        alert('프로필 설정 상태 확인에 실패했습니다.');
+      });
+  };
 
   const handleNextStep = () => {
     if (phone === "" || password === "") {
@@ -50,7 +72,6 @@ function SignUp2() {
     }
     setIsError(true);
     logIn();
-    // navigate('/KakaoId');
     setNextPage("다음 단계");
   }
 

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   gap: 7px;
+
+  padding-bottom: 70px;
 }
 
 .accept_count {

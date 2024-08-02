@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import BottomNav from "../components/BottomNav";
 import Logo from "../components/Logo";
 import PeopleLike from "../components/PeopleLike";
@@ -58,7 +57,7 @@ function AcceptMain() {
       <PeopleLike
           matchRequestId={0}
           name={"박지훈"}
-          profileIcon={"icon"}
+          profileIcon={"ICON_1"}
           universityName={"충남대학교"}
           major={"전자공학과"}
           grade={2}

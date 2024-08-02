@@ -8,17 +8,17 @@
   border-radius: 20px;
   border: none;
   cursor: pointer;
-  height: 2.25rem;
+  height: 35px;
   padding-left: 1rem;
   padding-right: 1rem;
-  font-size: 1rem;
+  font-size: 10px;
   background: #B8B8FF;
   margin: 5px;
 }
 
 .SendButton.active {
-  background: #D1F1FF;
-  border: 3px solid #82D9FF;
+  background: #F4F4F4;
+  border: 2px solid #E1E1E1;
 }
 
 .SendButton.next {

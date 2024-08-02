@@ -1,14 +1,34 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 
 import Keyword from "./Keyword";
 import ShowKakaoId from "./ShowKakaoId";
 import PeopleMessage from "./PeopleMessage";
-import thankIcon from '../images/icon4_selected.png';
+import thankIcon from '../images/chat.png';
 import peopleKakaoId from '../images/peopleKakaoId.png';
+import image01 from '../images/profile01.png';
+import image02 from '../images/profile02.png';
+import image03 from '../images/profile03.png';
+import image04 from '../images/profile04.png';
+import image05 from '../images/profile05.png';
+import image06 from '../images/profile06.png';
+import image07 from '../images/profile07.png';
+import image08 from '../images/profile08.png';
+import image09 from '../images/profile09.png';
 import '../styles/PeopleLike.css';
 
-function PeopleKakao({ name }) {
+const profileIconMap = {
+  ICON_1: image01,
+  ICON_2: image02,
+  ICON_3: image03,
+  ICON_4: image04,
+  ICON_5: image05,
+  ICON_6: image06,
+  ICON_7: image07,
+  ICON_8: image08,
+  ICON_9: image09
+};
+
+function PeopleKakao({ matchId, name, profileIcon, memberId, kakaoId, universityName, major, grade, classOf, age, brief, keywords }) {
   const [showKakaoId, setShowKakaoId] = useState(false);
   const [showThankIcon, setShowThankIcon] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -17,10 +37,10 @@ function PeopleKakao({ name }) {
   const handleKakaoClick = () => {
     if (showKakaoId) {
       setShowKakaoId(false);
-      setTimeout(() => setShowThankIcon(true), 0); // Show the thank icon after returning to PeopleKakao view
+      setTimeout(() => setShowThankIcon(true), 0); 
     } else {
       setShowKakaoId(true);
-      setShowThankIcon(false); // Hide the thank icon when ShowKakaoId is displayed
+      setShowThankIcon(false); 
     }
   };
 
@@ -40,21 +60,21 @@ function PeopleKakao({ name }) {
         <>
           <div className="people_container">
             <div className="people_profile">
-              <img />
+              <img src={profileIconMap[profileIcon]} alt="profile" className="people_icon" />
             </div>
 
             <div className="people_text">
-              <p className="people_name">박지훈</p>
-              <p className="people_explain">충남대학교 전자공학과 2학년</p>
-              <p className="people_explain">23학번 / 24살</p>
-              <p className="people_explain">"성실한 청년"</p>
+              <p className="people_name">{name}</p>
+              <p className="people_explain">{universityName} {major} {grade}학년</p>
+              <p className="people_explain">{classOf}학번 / {age}살</p>
+              <p className="people_explain">"{brief}"</p>
             </div>
           </div>
 
           <div className="keyword_wrapper">
-            <Keyword value={"진로"} />
-            <Keyword value={"친구"} />
-            <Keyword value={"기타"} />
+            {keywords.map((keyword, index) => (
+              <Keyword key={index} value={keyword} />
+            ))}
           </div>
 
           <div className="peopleKakao_button">
@@ -68,7 +88,7 @@ function PeopleKakao({ name }) {
 
       {showKakaoId && (
         <div onClick={handleKakaoClick}>
-          <ShowKakaoId />
+          <ShowKakaoId kakaoId={kakaoId} />
         </div>
       )}
 
@@ -80,6 +100,7 @@ function PeopleKakao({ name }) {
 
       {showMessage && (
         <PeopleMessage 
+          matchId={matchId}
           thankMessage={thankMessage}
           setThankMessage={setThankMessage}
           handleSendMessage={handleSendMessage}
