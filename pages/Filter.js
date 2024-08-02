@@ -35,7 +35,7 @@ function Filter() {
     .then(result => {
       console.log("Filter settings saved:", result);
       console.log('filterData: ', filterData);
-      navigate("/");  
+      navigate("/Main");  
     })
     .catch(error => {
       console.error('Error:', error);
@@ -92,11 +92,11 @@ function Filter() {
       </div>
       
       <div className='filter-classOf'>
-        <p className='filter-text'>학번 범위</p>
+        <p className='filter-text'>학년 범위</p>
         <div className="year-range">
           <input
             type="text"
-            placeholder="예) 18"
+            placeholder="예) 1"
             value={yearRange.start}
             onChange={(e) => setYearRange({ ...yearRange, start: e.target.value })}
             className="underline-input"
@@ -104,7 +104,7 @@ function Filter() {
           <span> ~ </span>
           <input
             type="text"
-            placeholder="예) 24"
+            placeholder="예) 4"
             value={yearRange.end}
             onChange={(e) => setYearRange({ ...yearRange, end: e.target.value })}
             className="underline-input"

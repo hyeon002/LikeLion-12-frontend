@@ -1,27 +1,87 @@
 import React, { useState } from "react";
 import '../styles/PeopleLike.css';
+import '../styles/People.css';
 
 import Keyword from "./Keyword";
 import like from '../images/Like.png';
 import bad from '../images/bad.png';
+import image01 from '../images/profile01.png';
+import image02 from '../images/profile02.png';
+import image03 from '../images/profile03.png';
+import image04 from '../images/profile04.png';
+import image05 from '../images/profile05.png';
+import image06 from '../images/profile06.png';
+import image07 from '../images/profile07.png';
+import image08 from '../images/profile08.png';
+import image09 from '../images/profile09.png';
 
-function PeopleLike() {
+const profileIconMap = {
+  ICON_1: image01,
+  ICON_2: image02,
+  ICON_3: image03,
+  ICON_4: image04,
+  ICON_5: image05,
+  ICON_6: image06,
+  ICON_7: image07,
+  ICON_8: image08,
+  ICON_9: image09
+};
+
+function PeopleLike({ matchRequestId, name, profileIcon, universityName, major, grade, classOf, age, brief, keywords }) {
   const [ selectLike, setSelectLike ] = useState('');
   const [ likeText, setLikeText ] = useState('좋아요');
   const [ badText, setBadText ] = useState('매칭 실패');
   const [ showBadImage, setShowBadImage ] = useState(true);
   const [ showLikeImage, setShowLikeImage ] = useState(true);
 
+  const token = localStorage.getItem('accessToken');
+
+  const acceptMatchRequest = () => {
+    fetch(`http://localhost:8080/matches/${matchRequestId}/accept`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Match request accepted:', data);
+    })
+    .catch(error => {
+      console.error('Error accepting match request:', error);
+    });
+  };
+  const rejectMatchRequest = () => {
+    fetch(`http://localhost:8080/matches/${matchRequestId}/reject`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Match request accepted:', data);
+    })
+    .catch(error => {
+      console.error('Error accepting match request:', error);
+    });
+  };
+
+
   const onClickLikeButton = (e) => {
-    setSelectLike('Like');
+    setSelectLike('accept');
     setLikeText('매칭 완료!');
     setShowLikeImage(false);
+    acceptMatchRequest();
   }
 
   const onClickBadButton = (e) => {
-    setSelectLike('Bad');
+    setSelectLike('reject');
     setBadText('매칭 실패');
     setShowBadImage(false);
+    rejectMatchRequest();
   }
 
   return(
@@ -29,26 +89,26 @@ function PeopleLike() {
 
       <div className="people_container">
         <div className="people_profile">
-          <img />
+          <img src={profileIconMap[profileIcon]} className="people_icon" />
         </div>
 
         <div className="people_text">
-          <p className="people_name">박지훈</p>
-          <p className="people_explain">충남대학교 전자공학과 2학년</p>
-          <p className="people_explain">23학번 / 24살</p>
-          <p className="people_explain">"성실한 청년"</p>
+          <p className="people_name">{name}</p>
+          <p className="people_explain">{`${universityName} ${major} ${grade}학년`}</p>
+          <p className="people_explain">{`${classOf}학번 / ${age}살`}</p>
+          <p className="people_explain">{`"${brief}"`}</p>
         </div>
       </div>
 
       <div className="keyword_wrapper">
-        <Keyword value={"진로"}/>
-        <Keyword value={"친구"}/>
-        <Keyword value={"기타"}/>
+        {keywords.map((keyword, index) => (
+          <Keyword key={index} value={keyword} />
+        ))}
       </div>
 
       <div className="people_button">
         <button 
-          className={`Like_button ${selectLike === 'Like' ? 'activeLike' : ""}`}
+          className={`Like_button ${selectLike === 'accept' ? 'activeLike' : ""}`}
           onClick={onClickLikeButton}
         >
           {showLikeImage && <img src={like} className="Like_image"/>}
@@ -56,7 +116,7 @@ function PeopleLike() {
         </button>
 
         <button 
-          className={`Like_button ${selectLike === 'Bad' ? 'activeBad' : ""}`}
+          className={`Like_button ${selectLike === 'reject' ? 'activeBad' : ""}`}
           onClick={onClickBadButton}
         >
           {showBadImage && <img src={bad} className="Like_image"/>}

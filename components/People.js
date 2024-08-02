@@ -3,12 +3,35 @@ import "../styles/People.css";
 
 import Keyword from "./Keyword";
 import requestImage from '../images/requestImage.png';
+import image01 from '../images/profile01.png';
+import image02 from '../images/profile02.png';
+import image03 from '../images/profile03.png';
+import image04 from '../images/profile04.png';
+import image05 from '../images/profile05.png';
+import image06 from '../images/profile06.png';
+import image07 from '../images/profile07.png';
+import image08 from '../images/profile08.png';
+import image09 from '../images/profile09.png';
+
+const profileIconMap = {
+  ICON_1: image01,
+  ICON_2: image02,
+  ICON_3: image03,
+  ICON_4: image04,
+  ICON_5: image05,
+  ICON_6: image06,
+  ICON_7: image07,
+  ICON_8: image08,
+  ICON_9: image09
+};
 
 
 function People({ memberId, profileIcon, name, universityName, major, grade, classOf, age, brief, keywords }) {
   
   const handleMatchRequest = () => {
     const token = localStorage.getItem('accessToken');
+    console.log('Access Token:', token);
+
     fetch('http://localhost:8080/matches', {
       method: 'POST',
       headers: {
@@ -17,12 +40,12 @@ function People({ memberId, profileIcon, name, universityName, major, grade, cla
       },
       body: JSON.stringify({ targetMemberId: memberId })
     })
-    .then(response => response.json())
     .then(result => {
-      if (result.success) {
+      console.log("result: ", result);
+      if (result.status === 200) {
         alert("매치 요청을 성공적으로 보냈습니다.");
       } else {
-        alert("매치 요청에 실패했습니다. 다시 시도해 주세요.");
+        alert(result.message || "매치 요청에 실패했습니다. 다시 시도해 주세요.");
       }
     })
     .catch(error => {
@@ -35,7 +58,7 @@ function People({ memberId, profileIcon, name, universityName, major, grade, cla
     <div className="people">
       <div className="people_container">
         <div className="people_profile">
-          <img />
+          <img src={profileIconMap[profileIcon]} className="people_icon"/>
         </div>
 
         <div className="people_text">
@@ -58,9 +81,6 @@ function People({ memberId, profileIcon, name, universityName, major, grade, cla
         {keywords.map((keyword, index) => (
           <Keyword key={index} value={keyword} />
         ))}
-        {/* <Keyword value={"진로"}/>
-        <Keyword value={"친구"}/>
-        <Keyword value={"기타"}/> */}
       </div>
     </div>
   );

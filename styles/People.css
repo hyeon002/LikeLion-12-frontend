@@ -7,6 +7,8 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
+
+  position: relative;
 }
 
 .people_container {
@@ -19,6 +21,16 @@
   width: 60px;
   height: 60px;
   border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.people_icon {
+  width: 40px;
+  height: 40px;
+  
 }
 
 .people_name_container {
@@ -31,6 +43,10 @@
   width: 40px;
   height: 38px;
   border: none;
+
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .requestImage {

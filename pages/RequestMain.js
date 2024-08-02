@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import BottomNav from "../components/BottomNav";
 import Logo from "../components/Logo";
 import RequestPeople from "../components/People";
@@ -23,6 +22,8 @@ function RequestMain() {
     })
     .then(response => response.json())
     .then(data => {
+      console.log("Fetched candidates: ", data);
+      console.log("candidate : ", candidates);
       setCandidates(data);
     })
     .catch(error => {
@@ -37,9 +38,10 @@ function RequestMain() {
       <CurrentStatus status={selectedOption} />
 
       <div>
-        {candidates?.map((candidate) => (
+        {candidates.map((candidate) => (
           <RequestPeople
             memberId={candidate.memberId}
+            side={candidate.side}
             profileIcon={candidate.profileIcon}
             name={candidate.name}
             universityName={candidate.universityName}
@@ -55,7 +57,7 @@ function RequestMain() {
       <div>
         <RequestPeople
           memberId={0}
-          profileIcon={Icon}
+          profileIcon={"ICON_1"}
           name={"박지훈"}
           universityName={"충남대학교"}
           major={"전자공학과"}

@@ -26,6 +26,18 @@ const imagePaths = [
   image09
 ];
 
+const profileIconValues = [
+  "ICON_1",
+  "ICON_2",
+  "ICON_3",
+  "ICON_4",
+  "ICON_5",
+  "ICON_6",
+  "ICON_7",
+  "ICON_8",
+  "ICON_9"
+];
+
 function Profile2({ setProfileData }) {
   const navigate = useNavigate();
 
@@ -47,9 +59,10 @@ function Profile2({ setProfileData }) {
   // 이모지, name 
   const handleNextClick = () => {
     if (isIconSelected) {
+      const selectedValue = profileIconValues[selectedIcon];
       setProfileData(prevData => ({
         ...prevData,
-        profileIcon: selectedIcon,
+        profileIcon: selectedValue,
       }));
       // 선택한 이모지를 Main 화면에서 나타나게 하기 위함 
       localStorage.setItem('selectedIcon', selectedIcon);

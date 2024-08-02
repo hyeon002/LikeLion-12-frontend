@@ -25,8 +25,8 @@ function App() {
   return (
     <RootLayout>
       <Routes>
-        <Route path='/' element={<Main />}/>
-        <Route path='/SignUp' element={<SignUp1 />} />
+        <Route path='/Main' element={<Main />}/>
+        <Route path='/' element={<SignUp1 />} />
         <Route path='/KakaoId' element={<KakaoId />}/>
         <Route path='/SignUp2' element={<SignUp2 />} />
         <Route path='/SchoolCheck' element={<SchoolCheck />} />

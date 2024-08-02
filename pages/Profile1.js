@@ -33,7 +33,6 @@ function Profile1({ setProfileData }) {
   }
   
   const handleData = () => {
-    // name 을 localStorage 에 저장 ( Main에서 나타내고 싶음 )
     localStorage.setItem('profileName', name);
 
     setProfileData(prevData => ({
