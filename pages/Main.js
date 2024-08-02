@@ -67,12 +67,12 @@ function Main() {
       <button 
         className={`main_button ${selectedOption === 'BUYER' ? 'active' : ''}`}
         onClick={() => setSelectedOption('BUYER')}
-      >후배님 밥 먹어요~ <br/>(신청할래요)</button>
+      >후배님 밥 먹어요~ <br/>(사줄래요)</button>
       <button 
         className={`main_button ${selectedOption === 'TAKER' ? 'active' : ''}`}
         onClick={() => setSelectedOption('TAKER')}
       >
-        선배님 밥 사주세요~ <br/>(먹을래요)
+        선배님 밥 사주세요~ <br/>(사주세요)
       </button>
       <button 
         className={`main_button ${selectedOption === 'BOTH' ? 'active' : ''}`}

@@ -19,14 +19,14 @@ function CurrentStatus({ status }) {
           className={`status_select ${status === 'BUYER' ? 'active' : ''}`}
         >
           <div className="status_circle red"></div>
-          <p className="status_select_text">신청할래요</p>
+          <p className="status_select_text">사줄래요</p>
         </button>
 
         <button 
           className={`status_select ${status === 'TAKER' ? 'active' : ''}`}
         >
           <div className="status_circle blue"></div>
-          <p className="status_select_text">먹을래요</p>
+          <p className="status_select_text">사주세요</p>
         </button>
 
         <button 

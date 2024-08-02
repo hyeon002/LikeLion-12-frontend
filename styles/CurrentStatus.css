@@ -63,19 +63,19 @@
   transform: translate(-50%, -50%);
 }
 
-.blue {
+.status_circle.blue {
   border: 1.5px solid #88A8FF;
 }
 
-.blue::after {
+.status_circle.blue::after {
   background-color: #88A8FF;
 }
 
-.green {
+.status_circle.green {
   border: 1.5px solid #66C168;
 }
 
-.green::after {
+.status_circle.green::after {
   background-color: #66C168;
 }
 

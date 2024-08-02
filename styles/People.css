@@ -96,6 +96,10 @@
   height: 60px;
   border-radius: 20px;
   background-color: #FFF3E7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .message_container {

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import BottomNav from "../components/BottomNav";
 import Logo from "../components/Logo";
 import Message from "../components/Message";
@@ -8,7 +7,7 @@ import rice from '../images/rice.png';
 import '../styles/AcceptMain.css';
 
 
-function MessageMain( { name } ) {
+function MessageMain() {
   return(
     <div className="acceptMain">
       <Logo />
@@ -19,7 +18,8 @@ function MessageMain( { name } ) {
       </div>
 
       <div className="messageMain_container">
-        <Message />
+        <Message 
+        />
         <Message />
         <Message />
         <Message />

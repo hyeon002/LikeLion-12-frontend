@@ -26,7 +26,7 @@ const profileIconMap = {
 };
 
 
-function People({ memberId, profileIcon, name, universityName, major, grade, classOf, age, brief, keywords }) {
+function People({ memberId, profileIcon, name, universityName, major, grade, classOf, age, brief, keywords, side }) {
   
   const handleMatchRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -54,6 +54,13 @@ function People({ memberId, profileIcon, name, universityName, major, grade, cla
     });
   };
 
+  const getStatusCircle = (side) => {
+    if (side === 'BUYER') return <div className="status_circle red"></div>;
+    if (side === 'TAKER') return <div className="status_circle blue"></div>;
+    if (side === 'BOTH') return <div className="status_circle green"></div>;
+    return null;
+  };
+
   return(
     <div className="people">
       <div className="people_container">
@@ -64,7 +71,7 @@ function People({ memberId, profileIcon, name, universityName, major, grade, cla
         <div className="people_text">
           <div className="people_name_container">
             <p className="people_name">{name}</p>
-            <div className="status_circle red"></div>
+            {getStatusCircle(side)}
           </div>
           <p className="people_explain">{universityName} {major} {grade}학년</p>
           <p className="people_explain">{classOf}학번 / {age}살</p>

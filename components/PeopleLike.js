@@ -27,7 +27,7 @@ const profileIconMap = {
   ICON_9: image09
 };
 
-function PeopleLike({ matchRequestId, name, profileIcon, universityName, major, grade, classOf, age, brief, keywords }) {
+function PeopleLike({ side, matchRequestId, name, profileIcon, universityName, major, grade, classOf, age, brief, keywords }) {
   const [ selectLike, setSelectLike ] = useState('');
   const [ likeText, setLikeText ] = useState('좋아요');
   const [ badText, setBadText ] = useState('매칭 실패');
@@ -84,6 +84,13 @@ function PeopleLike({ matchRequestId, name, profileIcon, universityName, major, 
     rejectMatchRequest();
   }
 
+  const getStatusCircle = (side) => {
+    if (side === 'BUYER') return <div className="status_circle red"></div>;
+    if (side === 'TAKER') return <div className="status_circle blue"></div>;
+    if (side === 'BOTH') return <div className="status_circle green"></div>;
+    return null;
+  };
+
   return(
     <div className="people">
 
@@ -93,7 +100,11 @@ function PeopleLike({ matchRequestId, name, profileIcon, universityName, major, 
         </div>
 
         <div className="people_text">
-          <p className="people_name">{name}</p>
+          <div className="people_name_container">
+            <p className="people_name">{name}</p>
+            {getStatusCircle(side)}
+          </div>
+
           <p className="people_explain">{`${universityName} ${major} ${grade}학년`}</p>
           <p className="people_explain">{`${classOf}학번 / ${age}살`}</p>
           <p className="people_explain">{`"${brief}"`}</p>
