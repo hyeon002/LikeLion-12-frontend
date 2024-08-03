@@ -11,7 +11,7 @@ function AcceptMain() {
   const [matchRequests, setMatchRequests] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/matches/acceptable-match-request', {
+    fetch('http://54.80.162.117:8080/matches/acceptable-match-request', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -20,6 +20,7 @@ function AcceptMain() {
     })
     .then(response => response.json())
     .then(data => {
+      console.log('11',data)
       setMatchRequests(data);
     })
     .catch(error => {
@@ -66,12 +67,6 @@ function AcceptMain() {
           brief={"성실한 청년"}
           keywords={["진로"]}
         />
-      {/* <div>
-        <PeopleLike />
-        <PeopleLike />
-        <PeopleLike />
-        <PeopleLike />
-      </div> */}
 
       <BottomNav />
     </div>

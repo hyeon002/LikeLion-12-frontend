@@ -15,7 +15,7 @@ function KakaoId() {
   const kakaoIdInput = () => {
     const token = localStorage.getItem('accessToken')
 
-    fetch('http://localhost:8080/members/profile/kakaoId', {
+    fetch('http://54.80.162.117:8080/members/profile/kakaoId', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

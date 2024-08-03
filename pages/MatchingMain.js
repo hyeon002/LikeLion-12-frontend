@@ -12,7 +12,7 @@ function MatchingMain() {
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
-    fetch('http://localhost:8080/matches', {
+    fetch('http://54.80.162.117:8080/matches', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,8 +37,7 @@ function MatchingMain() {
         <img src={rice} className="rice_image" />
         매칭 현황
       </div>
-      {/* peopleData가 [] 빈배열이라 오류가 떠서 주석 처리 해놓음 */}
-      {/*<div>
+      <div>
         {peopleData.map((person, index) => (
           <PeopleKakao 
             key={index}
@@ -56,7 +55,7 @@ function MatchingMain() {
             keywords={person.keywords}
           />
         ))}
-      </div>*/}
+      </div>
       
       <PeopleKakao 
         kakaoId={"string"}

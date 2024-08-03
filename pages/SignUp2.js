@@ -17,7 +17,7 @@ function SignUp2() {
   const [ userName, setUserName ] = useState('');
 
   const logIn = () => {
-    fetch('http://localhost:8080/members/login', {
+    fetch('http://54.80.162.117:8080/members/login', {
       method: "POST",
       headers: {
         'Content-Type' : 'application/json'
@@ -44,7 +44,7 @@ function SignUp2() {
 
   const checkProfileSetup = () => {
     const token = localStorage.getItem('accessToken');
-    fetch('http://localhost:8080/members/profile', {
+    fetch('http://54.80.162.117:8080/members/profile', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

@@ -22,7 +22,7 @@ function SchoolCheck() {
   const handleSchoolEmailCheck = () => {
     const token = localStorage.getItem('accessToken');
 
-    fetch('http://localhost:8080/members/profile/email/send-code', {
+    fetch('http://54.80.162.117:8080/members/profile/email/send-code', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function SchoolCheck() {
   const getUniversityName = () => {
     const token = localStorage.getItem('accessToken');
 
-    fetch(`http://localhost:8080/members/university-by-email?email=${email}`, {
+    fetch(`http://54.80.162.117:8080/members/university-by-email?email=${email}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ function SchoolCheck() {
   const handleCodeCertificate = () => {
     const token = localStorage.getItem('accessToken');
 
-    fetch('http://localhost:8080/members/profile/email/certificate', {
+    fetch('http://54.80.162.117:8080/members/profile/email/certificate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ function SchoolCheck() {
             throw new Error(error.message || 'Unknown error');
           });
         }
-        return response.json();
+        // return response.json();
       })
       .then(result => {
         if (result.success) {

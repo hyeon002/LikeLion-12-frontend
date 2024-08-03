@@ -52,7 +52,7 @@ function Main() {
 
     const token = localStorage.getItem('accessToken');
 
-    fetch('http://localhost:8080/filters/side', {
+    fetch('http://54.80.162.117:8080/filters/side', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ function RequestMain() {
   const selectedOption = localStorage.getItem('selectedOption') || '';
 
   useEffect(() => {
-    fetch('http://localhost:8080/matches/candidates', {
+    fetch('http://54.80.162.117:8080/matches/candidates', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
