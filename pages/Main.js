@@ -5,6 +5,27 @@ import "../styles/Main.css";
 import Logo from "../components/Logo";
 import Icon from "../components/Icon";
 import imagePaths from '../components/ProfileImages';
+import image01 from '../images/profile01.png';
+import image02 from '../images/profile02.png';
+import image03 from '../images/profile03.png';
+import image04 from '../images/profile04.png';
+import image05 from '../images/profile05.png';
+import image06 from '../images/profile06.png';
+import image07 from '../images/profile07.png';
+import image08 from '../images/profile08.png';
+import image09 from '../images/profile09.png';
+
+const profileIconMap = {
+  ICON_1: image01,
+  ICON_2: image02,
+  ICON_3: image03,
+  ICON_4: image04,
+  ICON_5: image05,
+  ICON_6: image06,
+  ICON_7: image07,
+  ICON_8: image08,
+  ICON_9: image09
+};
 
 function Main() {
   const navigate = useNavigate();
@@ -14,34 +35,29 @@ function Main() {
   const [ profileIcon, setProfileIcon ] = useState(null);
 
   useEffect(() => {
-    // localStorage 에서 저장된 이름 가져옴 
-    const storedName = localStorage.getItem('profileName');
-    const storedIconIndex = localStorage.getItem('selectedIcon');
-    if (storedName) {
-      setProfileName(storedName);
-    }
-    if (storedIconIndex !== null) {
-      setProfileIcon(imagePaths[storedIconIndex]);
-    }
+    fetch('http://54.80.162.117:8080/members/my', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setProfileName(data.name || '');
+      setProfileIcon(data.profileIcon ? data.profileIcon : null);
+      console.log("profile : ", profileIcon);
+    })
+    .catch(error => {
+      console.error('Error fetching profile data:', error);
+    });
   }, []);
-  // useEffect(() => {
-  //   const token = localStorage.getItem('accessToken');
-  //   fetch('http://localhost:8080/members/profile', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`
-  //     }
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       if (data) {
-  //         setProfileName(data.name); // 서버로부터 받은 사용자 이름 설정
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching profile:', error);
-  //     });
-  // }, []);
+
 
   const handleComplete = () => {
     if (!selectedOption) {
@@ -76,7 +92,10 @@ function Main() {
       <Logo />
 
       <div className="main_text">
-        {profileIcon && <Icon imagePath={profileIcon} />}
+        <div className="main_icon">
+          {profileIcon && <img src={profileIconMap[profileIcon]} className="icon_img" />}
+        </div>
+        
         <p className="main_name">{profileName}님!</p>
         <p className="main_explain">밥약 신청 상태를 설정해 주세요</p>
         <p className="main_explain">설정을 바탕으로 랜덤 매칭이 시작됩니다</p>
@@ -103,13 +122,13 @@ function Main() {
         className="SchoolCheck_button"
         onClick={handleComplete}
       >설정 완료</button>
-
+{/* 
       <div>
         <Link to={`/SignUp`}>page</Link>
       </div>
       <div>
         <Link to={`/RequestMain`}>RequestMain</Link>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -7,7 +7,7 @@ const Icon = ({ isSelected, onClick, imagePath }) => {
       className={`Icon ${isSelected ? "selected" : ""}`}
       onClick={onClick}
     >
-      <img src={imagePath} alt="icon" />
+      <img src={imagePath} alt="icon" className="icon_img"/>
     </button>
   );
 };
